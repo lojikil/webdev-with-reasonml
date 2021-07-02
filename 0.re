@@ -34,11 +34,29 @@ let string_of_colorSpec = (cspec:colorSpec) : string => {
     | White => "white"
     | Black => "black"
     | Grey(x) => Js.Float.toString(x *. 100.0) ++ "% grey"
-    | RGB(r, g, b) => "RGB(" ++ string_of_int(r) ++ ", " ++ string_of_int(g) ++ ", " ++ string_of_int(g) ++ ")"
+    | RGB(r, g, b) => "RGB(" ++ string_of_int(r) ++ ", " ++ string_of_int(g) ++ ", " ++ string_of_int(b) ++ ")"
   }
+}
+
+let normalize_colorSpec = (cspec:colorSpec) : string => {
+    switch(cspec) {
+        | White => "RGB(255, 255, 255)"
+        | Black => "RGB(0, 0, 0)"
+        | Grey(x) => {
+            Js.log2("x: ", x)
+            Js.log2("100.0 /. x", 100.0 *. x)
+            let v = 255 - int_of_float(255.0 *. x);
+            "RGB(" ++ string_of_int(v) ++ ", " ++ string_of_int(v) ++ ", " ++ string_of_int(v) ++ ")" ;
+        }
+        | RGB(r, g, b) => "RGB(" ++ string_of_int(r) ++ ", " ++ string_of_int(g) ++ ", " ++ string_of_int(b) ++ ")"
+    }
 }
 
 Js.log(string_of_colorSpec(color1))
 Js.log(string_of_colorSpec(color2))
 Js.log(string_of_colorSpec(color3))
 Js.log(string_of_colorSpec(color4))
+Js.log(normalize_colorSpec(color1))
+Js.log(normalize_colorSpec(color2))
+Js.log(normalize_colorSpec(color3))
+Js.log(normalize_colorSpec(color4))
