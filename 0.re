@@ -60,3 +60,40 @@ Js.log(normalize_colorSpec(color1))
 Js.log(normalize_colorSpec(color2))
 Js.log(normalize_colorSpec(color3))
 Js.log(normalize_colorSpec(color4))
+
+type shirtSize =
+    | Small
+    | Medium
+    | Large
+    | XLarge(int)
+
+let shirtSize_of_string = (src:string) : option(shirtSize) => {
+    switch(src) {
+        | "Small" => Some(Small)
+        | "Medium" => Some(Medium)
+        | "Large" => Some(Large)
+        | "XLarge" => Some(XLarge(1))
+        | "XXLarge" => Some(XLarge(2))
+        | "XXXLarge" => Some(XLarge(3))
+        | "XXXXLarge" => Some(XLarge(4))
+        | _ => None
+    }
+}
+
+let price = (src:shirtSize) : float => {
+    switch(src) {
+        | Small => 11.00
+        | Medium => 12.50
+        | Large => 14.00
+        | XLarge(n) => 16.00 +. (float_of_int(n - 1) *. 0.50)
+    }
+}
+
+let nicePrice = (price:float) : string => {
+    "The price is: $" ++ Js.Float.toString(price)
+}
+
+let displayPrice = (src:string) : unit => {
+    let result = shirtSize_of_string(src) -> Belt.Option.map(price) -> Belt.Option.map(nicePrice)
+    Js.log(result)
+}
