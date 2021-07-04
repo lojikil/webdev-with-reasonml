@@ -1,0 +1,21 @@
+{
+  "name": "chapter-4",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "bs-platform": "^9.0.2"
+  },
+  "dependencies": {
+    "bs-webapi": "^0.19.1",
+    "parcel": "^2.0.0-beta.2"
+  }
+}
